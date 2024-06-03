@@ -34,6 +34,7 @@ import { updateMember } from "./routes/members/update-member";
 import { removeMember } from "./routes/members/remove-member";
 import { createInvite } from "./routes/invites/create-invit";
 import { getInvite } from "./routes/invites/get-invite";
+import { getInvites } from "./routes/invites/get-invites";
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
 app.setSerializerCompiler(serializerCompiler);
@@ -94,6 +95,7 @@ app.register(updateMember);
 app.register(removeMember);
 app.register(createInvite);
 app.register(getInvite);
+app.register(getInvites);
 
 app.listen({ port: env.SERVER_PORT }).then(() => {
   console.log("HTTP server running!");
