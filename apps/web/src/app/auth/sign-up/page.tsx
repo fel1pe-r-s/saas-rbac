@@ -5,11 +5,15 @@ import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import Image from "next/image";
 import gitHubIcon from "@/app/assets/github-icon.svg";
-import { signInWithEmailAndPassword } from "./action";
 
-export default function SignInPage() {
+export default function SignUpPage() {
   return (
-    <form action={signInWithEmailAndPassword} className="space-y-4">
+    <form action="" className="space-y-4">
+      <div className="space-y-1">
+        <Label htmlFor="name">Name</Label>
+        <Input name="name" type="text" id="name" />
+      </div>
+
       <div className="space-y-1">
         <Label htmlFor="email">Email</Label>
         <Input name="email" type="email" id="email" />
@@ -18,19 +22,23 @@ export default function SignInPage() {
       <div className="space-y-1">
         <Label htmlFor="password">Password</Label>
         <Input name="password" type="password" id="password" />
-        <Link
-          href="/auth/forgot-password"
-          className="text-xs font-medium text-foreground hover:underline"
-        >
-          Forgot your password
-        </Link>
+      </div>
+
+      <div className="space-y-1">
+        <Label htmlFor="password_confirmation">Confirm your Password</Label>
+        <Input
+          name="password_confirmation"
+          type="password"
+          id="password_confirmation"
+        />
       </div>
 
       <Button type="submit" className="w-full">
-        Sign in with e-mail
+        Create account
       </Button>
+
       <Button variant="link" className="w-full" asChild>
-        <Link href="/auth/sign-up">Create new account</Link>
+        <Link href="/auth/sign-in">Already registered? sign in</Link>
       </Button>
 
       <Separator />
