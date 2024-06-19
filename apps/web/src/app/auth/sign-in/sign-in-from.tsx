@@ -20,8 +20,17 @@ export default function SignInForm() {
       errors: null,
     }
   );
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    formAction({ email, password });
+  }
   return (
-    <form action={formAction} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4">
       {!state.success && (
         <Alert variant="destructive">
           <AlertTriangle className="size-4" />
