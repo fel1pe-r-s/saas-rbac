@@ -1,3 +1,5 @@
+import { getMembership } from "@/http/get-membership";
+import { defineAbilityFor } from "@saas/auth";
 import { getProfile } from "@/http/get-profile";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -19,4 +21,35 @@ export async function auth() {
   } catch {}
 
   redirect("/api/auth/sign-out");
+}
+
+export function getCurrentOrg() {
+  return cookies().get("org")?.value ?? null;
+}
+
+export async function getCurrentMembership() {
+  const org = getCurrentOrg();
+
+  if (!org) {
+    return null;
+  }
+
+  const { membership } = await getMembership(org);
+
+  return membership;
+}
+
+export async function ability() {
+  const membership = await getCurrentMembership();
+
+  if (!membership) {
+    return null;
+  }
+
+  const ability = defineAbilityFor({
+    id: membership.userId,
+    role: membership.role,
+  });
+
+  return ability;
 }

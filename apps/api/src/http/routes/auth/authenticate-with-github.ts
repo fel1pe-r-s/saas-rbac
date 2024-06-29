@@ -36,7 +36,7 @@ export async function authenticateWithGithub(app: FastifyInstance) {
       );
       githubOAuthURL.searchParams.set(
         "redirect_uri",
-        "http://localhost:3000/api/auth/callback"
+        env.GITHUB_OAUTH_CLIENT_REDIRECT_URI
       );
       githubOAuthURL.searchParams.set("code", code);
 
@@ -48,7 +48,6 @@ export async function authenticateWithGithub(app: FastifyInstance) {
       });
 
       const githubAccessTokenData = await githubAccessTokenResponse.json();
-
       const { access_token: githubAccessToken } = z
         .object({
           access_token: z.string(),
